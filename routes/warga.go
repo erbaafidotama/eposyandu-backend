@@ -4,42 +4,47 @@ import (
 	"admin-rt/config"
 	"admin-rt/models"
 	"fmt"
-	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
-// PostWarga this
+type wargaRequest struct {
+	NamaWarga    string `json:"nama_warga"`
+	NoKk         string `json:"no_kk"`
+	Nik          string `json:"nik"`
+	Alamat       string `json:"alamat"`
+	TypeKeluarga int    `json:"type_keluarga"`
+	TanggalLahir string `json:"tanggal_lahir"`
+	TempatLahir  string `json:"tempat_lahir"`
+}
+
 func PostWarga(c *gin.Context) {
 	db := config.GetDB()
-	typeKeluarga, err := strconv.Atoi(c.PostForm("type_keluarga"))
-	if err != nil {
-		fmt.Println("ERROR Covert Type")
+	var wargaReq wargaRequest
+
+	if err := c.BindJSON(&wargaReq); err != nil {
+		fmt.Println("ERROR BINDJSON", err)
 	}
 	// convert string date to date db
-	dateStr := c.PostForm("tanggal_lahir")
+	dateStr := wargaReq.TanggalLahir
 	format := "2006-01-02"
 	date, _ := time.Parse(format, dateStr)
 
-	// make object from form body
 	warga := models.Warga{
-		NamaWarga:    c.PostForm("nama_warga"),
-		NoKk:         c.PostForm("no_kk"),
-		Nik:          c.PostForm("nik"),
-		Alamat:       c.PostForm("alamat"),
+		NamaWarga:    wargaReq.NamaWarga,
+		NoKk:         wargaReq.NoKk,
+		Nik:          wargaReq.Nik,
+		Alamat:       wargaReq.Alamat,
 		TanggalLahir: date,
-		TypeKeluarga: typeKeluarga,
-		TempatLahir:  c.PostForm("tempat_lahir"),
+		TypeKeluarga: wargaReq.TypeKeluarga,
+		TempatLahir:  wargaReq.TempatLahir,
 	}
 
-	// crete data to db
-	// config.DB.Create(&account)
 	db.Create(&warga)
-
 	c.JSON(200, gin.H{
 		"status": "berhasil post",
-		"data":   warga,
+		"data":   wargaReq,
 	})
 }
 
