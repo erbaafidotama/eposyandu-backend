@@ -25,7 +25,6 @@ func main() {
 			adminrt.POST("/account", routes.PostAccount) // /api/v1/admin/account
 		}
 		v1.POST("/warga", middleware.IsAuth(), routes.PostWarga)
-		v1.POST("/wargaJson", routes.PostWargaJson)
 		v1.GET("/warga", middleware.IsAuth(), routes.GetWarga)
 	}
 
