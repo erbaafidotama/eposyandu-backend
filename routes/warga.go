@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"admin-rt/config"
-	"admin-rt/models"
+	"eposyandu/config"
+	"eposyandu/models"
 	"fmt"
 	"time"
 
@@ -37,8 +37,8 @@ func PostWarga(c *gin.Context) {
 		Nik:          wargaReq.Nik,
 		Alamat:       wargaReq.Alamat,
 		TanggalLahir: date,
-		TypeKeluarga: wargaReq.TypeKeluarga,
-		TempatLahir:  wargaReq.TempatLahir,
+		// TypeKeluarga: wargaReq.TypeKeluarga,
+		TempatLahir: wargaReq.TempatLahir,
 	}
 
 	db.Create(&warga)

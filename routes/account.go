@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"admin-rt/config"
-	"admin-rt/models"
+	"eposyandu/config"
+	"eposyandu/models"
 	"fmt"
 	"time"
 
