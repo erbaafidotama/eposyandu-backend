@@ -1,7 +1,7 @@
 package config
 
 import (
-	"admin-rt/models"
+	"eposyandu/models"
 	"fmt"
 	"os"
 
@@ -27,7 +27,9 @@ func GetDB() *gorm.DB {
 	if err != nil {
 		panic("Connecting database failed:" + err.Error())
 	}
-	db.AutoMigrate(&models.Account{})
-	db.AutoMigrate(&models.Warga{})
+	// db.AutoMigrate(&models.Account{})
+	// db.AutoMigrate(&models.Warga{})
+	db.AutoMigrate(&models.Lookup{})
+	db.AutoMigrate(&models.LookupDetail{})
 	return db
 }
