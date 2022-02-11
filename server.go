@@ -1,9 +1,8 @@
 package main
 
 import (
-	"admin-rt/config"
-	"admin-rt/middleware"
-	"admin-rt/routes"
+	"eposyandu/config"
+	"eposyandu/routes"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,13 +18,18 @@ func main() {
 	v1 := router.Group("api/v1") // /api/v1
 	{
 		v1.POST("/login", routes.Login) // /api/v1/login
-		adminrt := v1.Group("/admin")   // /api/v1/sewaAset
+		admin := v1.Group("/admin")     // /api/v1/sewaAset
 		{
-			adminrt.GET("/account", routes.GetAccount)   // /api/v1/admin/account
-			adminrt.POST("/account", routes.PostAccount) // /api/v1/admin/account
+			admin.GET("/account", routes.GetAccount)   // /api/v1/admin/account
+			admin.POST("/account", routes.PostAccount) // /api/v1/admin/account
 		}
-		v1.POST("/warga", middleware.IsAuth(), routes.PostWarga)
-		v1.GET("/warga", middleware.IsAuth(), routes.GetWarga)
+		// v1.POST("/warga", middleware.IsAuth(), routes.PostWarga)
+		// v1.GET("/warga", middleware.IsAuth(), routes.GetWarga)
+		v1.POST("/lookup", routes.PostLookup)
+		v1.GET("/lookup", routes.GetLookup)
+		v1.GET("/lookup/:lookup_uuid", routes.GetLookupByUuid)
+		v1.PUT("/lookup/:lookup_uuid", routes.PutLookup)
+		v1.POST("/lookupDetail", routes.PostLookupDetail)
 	}
 
 	router.Run()
