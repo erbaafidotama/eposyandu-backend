@@ -89,12 +89,16 @@ func GetLookup(c *gin.Context) {
 	db := config.GetDB()
 	var lookup []models.Lookup
 
-	db.Find(&lookup)
-
-	c.JSON(200, gin.H{
-		"status": "berhasil get",
-		"data":   lookup,
-	})
+	if err := db.Find(&lookup).Error; err != nil {
+		c.JSON(500, gin.H{
+			"status": "gagal get",
+		})
+	} else {
+		c.JSON(200, gin.H{
+			"status": "berhasil get",
+			"data":   lookup,
+		})
+	}
 }
 
 func GetLookupByUuid(c *gin.Context) {
@@ -102,10 +106,14 @@ func GetLookupByUuid(c *gin.Context) {
 	var lookup models.Lookup
 
 	uuid := c.Param("lookup_uuid")
-	db.Where("lookup_uuid = ?", uuid).First(&lookup)
-
-	c.JSON(200, gin.H{
-		"status": "berhasil get",
-		"data":   lookup,
-	})
+	if err := db.Where("lookup_uuid = ?", uuid).First(&lookup).Error; err != nil {
+		c.JSON(500, gin.H{
+			"status": "gagal get",
+		})
+	} else {
+		c.JSON(200, gin.H{
+			"status": "berhasil get",
+			"data":   lookup,
+		})
+	}
 }
