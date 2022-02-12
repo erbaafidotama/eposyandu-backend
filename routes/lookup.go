@@ -40,11 +40,16 @@ func PostLookup(c *gin.Context) {
 		LookupUuid:  uuid.New(),
 	}
 
-	db.Create(&lookup)
-	c.JSON(200, gin.H{
-		"status": "berhasil post",
-		"data":   lookupReq,
-	})
+	if err := db.Create(&lookup).Error; err != nil {
+		c.JSON(500, gin.H{
+			"status": "gagal create",
+		})
+	} else {
+		c.JSON(200, gin.H{
+			"status": "berhasil create",
+			"data":   lookup,
+		})
+	}
 }
 
 func PutLookup(c *gin.Context) {
