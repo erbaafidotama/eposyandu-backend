@@ -2,6 +2,7 @@ package main
 
 import (
 	"eposyandu/config"
+	"eposyandu/middleware"
 	"eposyandu/routes"
 
 	"github.com/gin-gonic/gin"
@@ -13,7 +14,9 @@ func main() {
 	// config.InitDB()
 	config.GetDB()
 
-	router := gin.Default()
+	// router := gin.Default()
+	router := gin.New()
+	router.Use(middleware.CORSMiddleware())
 
 	router.POST("/login", routes.Login)
 	admin := router.Group("/admin") //admin is the prefix
