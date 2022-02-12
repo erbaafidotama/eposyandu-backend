@@ -9,7 +9,7 @@ import (
 
 type LookupDetail struct {
 	gorm.Model
-	LookupDetailUuid uuid.UUID `gorm:"type:uuid"`
+	LookupDetailUuid uuid.UUID `gorm:"type:uuid" json:"lookup_detail_uuid"`
 	Name             string
 	Description      string
 	ActiveFlag       bool

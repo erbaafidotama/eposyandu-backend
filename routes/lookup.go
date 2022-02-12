@@ -84,10 +84,6 @@ func PutLookup(c *gin.Context) {
 			"data":   lookup,
 		})
 	}
-	// c.JSON(200, gin.H{
-	// 	"status": "berhasil put",
-	// 	"data":   lookupReq,
-	// })
 }
 
 func GetLookup(c *gin.Context) {
