@@ -27,9 +27,10 @@ func GetDB() *gorm.DB {
 	if err != nil {
 		panic("Connecting database failed:" + err.Error())
 	}
-	// db.AutoMigrate(&models.Account{})
+	db.AutoMigrate(&models.Account{})
 	// db.AutoMigrate(&models.Warga{})
-	db.AutoMigrate(&models.Lookup{})
-	db.AutoMigrate(&models.LookupDetail{})
+	// db.AutoMigrate(&models.Lookup{})
+	// db.AutoMigrate(&models.LookupDetail{})
+	db.AutoMigrate(&models.AllAnak{})
 	return db
 }
