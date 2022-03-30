@@ -45,6 +45,13 @@ func main() {
 		warga.POST("/", routes.PostWarga) // /warga
 		// warga.PUT("/:warga_uuid", routes.PutWarga)       // /warga/:warga_uuid
 	}
+	anak := router.Group("/anak") //anak is the prefix
+	{
+		anak.GET("/", routes.GetAnak)                 // /anak
+		anak.GET("/:anak_uuid", routes.GetAnakByUuid) // /anak/:warga_uuid
+		anak.POST("/", routes.PostAnak)               // /anak
+		// warga.PUT("/:anak_uuid", routes.PutWarga)       // /anak/:anak_uuid
+	}
 
 	// router.Run(":8080") // if you want to run on port 8080
 	router.Run()
